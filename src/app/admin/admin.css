@@ -1,0 +1,58 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.dashboard-wrapper{
+    display: flex;
+    width: 100%;
+}
+
+.sidebar{
+    width: 20%;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5vh 0 5vh 0 ;
+}
+
+.page{
+    width: 80%;
+    height: 100vh;
+}
+
+.unordered-list{
+    list-style-type: none;
+    color: white;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+.list-item:hover{
+    text-decoration: underline;
+}
+
+.logOutBtn{
+    padding: 10px 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    background-color: white;
+    border-radius:10px ;
+}
+.logOutBtn:hover{
+    border: 2px solid white;
+    color: white;
+    background-color: black;
+    transition: 0.1s ease-in;
+}
+
+.create-blog-wraper{
+    padding: 20px;
+}
