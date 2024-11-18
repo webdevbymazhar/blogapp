@@ -22,9 +22,11 @@ const AdminLayout = ({children}) => {
          </div>
 
          <button className='logOutBtn'>Log Out</button>
-          
-
+        
         </div>
+
+
+        
         <div className='page'>
             {children}
         </div>

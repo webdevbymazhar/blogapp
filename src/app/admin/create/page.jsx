@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import dynamic from "next/dynamic";
 import 'react-quill/dist/quill.snow.css';
+import { CldUploadWidget } from 'next-cloudinary';
+import axios from 'axios';
 
 
 const ReactQuill = dynamic(() => import("react-quill"), {
@@ -9,8 +11,50 @@ const ReactQuill = dynamic(() => import("react-quill"), {
 });
 
 
+
+
+
+
 const Create = () => {
   const [value, setValue] = useState('');
+   const [data,setdata] = useState({
+    image : "",
+    title : "",
+    category : "",
+   })
+
+
+   let OnChangeHandler = (e) =>{
+    setdata({ ...data, [e.target.name]: e.target.value });
+    
+    // console.log({...data, [e.target.name]: e.target.value })
+     
+   }
+
+
+   let submitData = async (e) =>{
+    e.preventDefault()
+
+    try {
+      let response = await axios.post("/api/blog",{
+        ...data, description : value
+      })
+      console.log(response);
+
+     
+      
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
+    
+   }
+
+
+   
+
   return (
     <div className='create-blog-wraper'>
       <h2>Create Blog Page</h2>
@@ -18,20 +62,44 @@ const Create = () => {
       <div style={{width:"50%", marginTop:"5vh"}}>
       <form style={{display:"flex",flexDirection:"column", gap:"5vh"}} >
 
-<input type="file" placeholder='Enter Blog Title..' />
+      <CldUploadWidget
+                    cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+                    onSuccess={(results) => {
+                      if (results.info?.secure_url && results.event === "success") {
+                        setdata((data) => ({
+                          ...data,
+                          image: results.info.secure_url,  
+                        }));
+                      }
+                    }}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          open();
+                        }}
+                        className="bg-white border border-black  rounded-md  p-3 mt-5 mb-5 w-16 h-16 flex gap-3 justify-center items-center "
+                      >
+                        <span className="flex flex-col justify-center items-center text-sm ">+</span>
+                      </button>
+                    )}
+                  </CldUploadWidget>
 
 <div style={{display:"flex", flexDirection:"column", gap:"10px"}}>
 <label htmlFor="">Title:</label>
-<input style={{padding : "10px 5px"}} type="text" placeholder='Enter Blog Title..' />
+<input onChange={OnChangeHandler} style={{padding : "10px 5px"}} name='title' value={data.title} type="text" placeholder='Enter Blog Title..' />
 </div>
 
 <div style={{display:"flex", flexDirection:"column", gap:"10px"}}>
 <label htmlFor="">Category:</label>
-<select style={{padding : "10px 5px"}} >
-  <option value="">Technology</option>
-  <option value="">Cars</option>
-  <option value="">Football</option>
-  <option value="">lectronics</option>
+<select onChange={OnChangeHandler} value={data.category} name='category'  style={{padding : "10px 5px"}} >
+  <option value="technology">Technology</option>
+  <option value="cars">Cars</option>
+  <option value="football">Football</option>
+  <option value="electronics">electronics</option>
 
 </select>
 </div>
@@ -41,7 +109,7 @@ const Create = () => {
 <ReactQuill style={{height:"25vh"}} theme="snow" value={value} onChange={setValue} />
 </div>
 
-<button style={{marginTop:"30px"}} className='logOutBtn'>Submit</button>
+<button onClick={submitData} style={{marginTop:"30px"}} className='logOutBtn'>Submit</button>
 
 
 

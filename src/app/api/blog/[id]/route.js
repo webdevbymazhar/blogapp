@@ -10,11 +10,11 @@ export async function PUT(req,{params}) {
 
         let {title,image,description,category} = await req.json()
 
-        if(!title || !image || !description || !category){
-            return NextResponse.json({
-            message : "Please fill all the credentials!"
-            },{status:401})
-        }
+        // if(!title || !image || !description || !category){
+        //     return NextResponse.json({
+        //     message : "Please fill all the credentials!"
+        //     },{status:401})
+        // }
 
         let blog = await Blog.findByIdAndUpdate(id,{
             title,image,description,category
