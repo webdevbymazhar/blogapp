@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
 import 'react-quill/dist/quill.snow.css';
 import { CldUploadWidget } from 'next-cloudinary';
@@ -16,7 +16,7 @@ const ReactQuill = dynamic(() => import("react-quill"), {
 
 
 
-const Create = () => {
+const Create = ({params}) => {
   const [value, setValue] = useState('');
    const [data,setdata] = useState({
     image : "",
@@ -31,38 +31,57 @@ const Create = () => {
     setdata({ ...data, [e.target.name]: e.target.value });
     
     // console.log({...data, [e.target.name]: e.target.value })
+   }
+   
+
+   let fetchData = async () =>{
+     let id = params.id
+     let res = await axios.get(`/api/blog/${id}`)
+     let blog = res.data.blog
+     if(res){
+        setdata({
+            title : blog.title,
+            category : blog.category,
+            image : blog.image,
+        })
+        setValue(blog.description)
+     }
      
    }
-
-
-   let submitData = async (e) =>{
-    e.preventDefault()
-
-    try {
-      let response = await axios.post("/api/blog",{
-        ...data, description : value
-      })
-      
-        router.push("/admin/blogs")
-      
-
      
-      
-      
-    } catch (error) {
-      console.log(error);
-      
-    }
-    
-    
-   }
+   
 
+    let updateData = async (e) =>{
+
+        e.preventDefault()
+
+        try {
+            let updatedblog = await axios.put(`/api/blog/${params.id}`,{
+                ...data, description : value
+              })
+              if(updatedblog){
+                router.push("/admin/blogs")
+              }
+        } catch (error) {
+            console.log(error);
+            
+        }
+        
+
+}
+     
+    
+    
+   
+ useEffect(()=>{
+fetchData()
+ },[])
 
    
 
   return (
     <div className='create-blog-wraper'>
-      <h2>Create Blog Page</h2>
+      <h2>Update Blog Page</h2>
       <hr style={{marginTop:"10px"}} />
       <div style={{width:"50%", marginTop:"5vh"}}>
       <form style={{display:"flex",flexDirection:"column", gap:"5vh"}} >
@@ -93,6 +112,8 @@ const Create = () => {
                     )}
                   </CldUploadWidget>
 
+                  <img src={data.image} style={{width:"100px",height:"100px",objectFit:"cover"}} alt="" />
+
 <div style={{display:"flex", flexDirection:"column", gap:"10px"}}>
 <label htmlFor="">Title:</label>
 <input onChange={OnChangeHandler} style={{padding : "10px 5px"}} name='title' value={data.title} type="text" placeholder='Enter Blog Title..' />
@@ -114,7 +135,7 @@ const Create = () => {
 <ReactQuill style={{height:"25vh"}} theme="snow" value={value} onChange={setValue} />
 </div>
 
-<button onClick={submitData} style={{marginTop:"30px"}} className='logOutBtn'>Submit</button>
+<button onClick={updateData}  style={{marginTop:"30px"}} className='logOutBtn'>Update</button>
 
 
 

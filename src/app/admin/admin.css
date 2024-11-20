@@ -56,3 +56,12 @@
 .create-blog-wraper{
     padding: 20px;
 }
+
+.blog-table{
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.blog-table td,th{
+    border: 1px solid black;
+}
