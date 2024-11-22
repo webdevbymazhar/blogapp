@@ -42,3 +42,20 @@ a {
     color-scheme: dark;
   }
 }
+
+.blog-wrapper{
+  margin-top: 30px
+  ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.blog-image{
+  height: 40vh;
+  width: auto;
+  object-fit: cover;
+}

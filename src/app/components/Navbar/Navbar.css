@@ -1,0 +1,90 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 0.8rem 1.5rem;
+    color: white;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-links li {
+    margin: 0 1rem;
+    position: relative; /* Needed for dropdown positioning */
+  }
+  
+  .navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  .navbar-links a:hover {
+    color: #00bcd4;
+  }
+  
+  /* Dropdown Button */
+  .dropdown-btn {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .dropdown-btn:hover {
+    color: #00bcd4;
+  }
+  
+  /* Dropdown Menu */
+  .dropdown-menu {
+    position: absolute; /* Position it relative to parent */
+    top: 100%; /* Aligns just below the button */
+    left: 0;
+    background-color: #444;
+    padding: 0.5rem 0;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: max-content;
+    height: 400px;
+  }
+  
+  .dropdown-menu li {
+    padding: 0.5rem 1rem;
+  }
+  
+  .dropdown-menu li a {
+    color: white;
+    font-size: 0.9rem;
+  }
+  
+  .dropdown-menu li a:hover {
+    color: #00bcd4;
+    background-color: #555;
+    display: block;
+  }
+  

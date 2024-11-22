@@ -67,7 +67,6 @@ const Create = ({params}) => {
             
         }
         
-
 }
      
     

@@ -93,6 +93,12 @@ const Create = () => {
                     )}
                   </CldUploadWidget>
 
+                  <div>
+                    {
+                      data.image ? <img style={{width:"200px",height:"200px",objectFit:"cover"}} src={data.image} alt="" /> : <p>No Image Selected</p>
+                    }
+                  </div>
+
 <div style={{display:"flex", flexDirection:"column", gap:"10px"}}>
 <label htmlFor="">Title:</label>
 <input onChange={OnChangeHandler} style={{padding : "10px 5px"}} name='title' value={data.title} type="text" placeholder='Enter Blog Title..' />
