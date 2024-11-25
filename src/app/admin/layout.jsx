@@ -1,8 +1,25 @@
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 import "./admin.css"
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const AdminLayout = ({children}) => {
+
+  let router = useRouter()
+
+  let token = localStorage.getItem("blogapptoken")
+
+  let LogOut = () =>{
+    localStorage.removeItem("blogapptoken")
+    router.push("/login")
+  }
+
+  useEffect(()=>{
+  if(!token){
+router.push("/login")
+  }
+  },[])
   return (
     <div>
       <div className='dashboard-wrapper' >
@@ -21,7 +38,7 @@ const AdminLayout = ({children}) => {
           </ul>
          </div>
 
-         <button className='logOutBtn'>Log Out</button>
+         <button onClick={LogOut} className='logOutBtn'>Log Out</button>
         
         </div>
 
