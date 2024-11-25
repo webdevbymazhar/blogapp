@@ -35,8 +35,6 @@ fetchBlog()
         <h1>{data.title}</h1>
         <h2>{data.category}</h2>
         <div dangerouslySetInnerHTML={{__html:data.description}}></div>
-  
-  
         </div>
       }
     </div>
